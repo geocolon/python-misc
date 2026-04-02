@@ -59,6 +59,71 @@ t = "nagaram" #-> True
 x = "rat"
 y = "car" #-> False
 print(is_anagram(s, t))
+
+
+# Optimal: O(n) time, O(1) space (26 letters max)
+def is_anagram_optimal(s, t):
+    if len(s) != len(t):
+        return False
+    from collections import Counter
+    return Counter(s) == Counter(t)
+
+# Tests
+print(is_anagram("anagram", "nagaram"))  # True
+print(is_anagram("rat", "car"))          # False
+print(is_anagram("", ""))                # True (edge case)
+print(is_anagram("a", "ab"))             # False (different lengths)
+
+
 print("Problem 2: Is Anagram (LeetCode #2)**")
+print("----************************----")
+print("----************************----")
+
+
+# I am looking at time/intervals that overlap. 
+# With the last merged one,extend it, if not,
+# add the curremt interval as a new entry
+# 
+# I want to compair with a stored interval once I see 
+# they overlap I will ad the ends and removed the start
+# 
+# #/
+# Example = [[1,3],[2,6],[8,10],[15,18]]
+
+# def merge_intervals(timelist):
+#     New_Arry = []
+#     for i in range(len(timelist)):
+#         timelist[i] : New_Arry[i]
+
+# print(Merge_Intervals(Example))
+
+def merge_intervals(intervals):
+    # Step 1: Sort by start time
+    intervals.sort(key=lambda x: x[0])
+    
+    result = []
+    
+    for interval in intervals:
+        # If result is empty OR no overlap with last merged interval
+        if not result or interval[0] > result[-1][1]:
+            # Add as new entry
+            result.append(interval)
+        else:
+            # They overlap — extend the end of the last entry
+            result[-1][1] = max(result[-1][1], interval[1])
+    
+    return result
+
+print(merge_intervals([[1,4],[4,5]]))        # [[1,5]] — touching edges merge
+print(merge_intervals([[1,4],[2,3]]))        # [[1,4]] — one fully inside another
+print(merge_intervals([]))                    # []      — empty input
+print(merge_intervals([[5,7],[1,3],[2,6]]))  # [[1,7]] — unsorted input
+
+print("Problem 3: Imerge intervals (LeetCode #3)**")
+print("----************************----")
+print("----************************----")
+
+
+print("**Problem 4: Product of Array Except Self (LeetCode #238)**")
 print("----************************----")
 print("----************************----")
