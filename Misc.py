@@ -123,7 +123,44 @@ print("Problem 3: Imerge intervals (LeetCode #3)**")
 print("----************************----")
 print("----************************----")
 
+# Given an integer array `nums`, return an array where `answer[i]` is the product of all elements in `nums` except `nums[i]`.
 
+# You must solve it **without using division**.
+# ```
+# Example: [1, 2, 3, 4] -> [24, 12, 8, 6]
+
+# Explanation:
+# answer[0] = 2 * 3 * 4 = 24
+# answer[1] = 1 * 3 * 4 = 12
+# answer[2] = 1 * 2 * 4 = 8
+# answer[3] = 1 * 2 * 3 = 6
+nums_array = [1, 2, 3, 4]
+
+# def product_array(nums):
+#     result = []
+#     for num in range(len(nums)):
+#         result.append((nums[--num] * nums[++num]) * nums[++num])    
+#     return result
+# print(product_array(nums_array))
+
+def product_except_self(nums):
+    n = len(nums)
+    result = [1] * n
+    
+    # Left pass: build up product from the left
+    left_product = 1
+    for i in range(n):
+        result[i] = left_product
+        left_product *= nums[i]  # accumulate for the NEXT index
+    
+    # Right pass: multiply in product from the right
+    right_product = 1
+    for i in range(n - 1, -1, -1):  # loop backwards
+        result[i] *= right_product
+        right_product *= nums[i]
+    
+    return result
+print(product_except_self(nums_array))
 print("**Problem 4: Product of Array Except Self (LeetCode #238)**")
 print("----************************----")
 print("----************************----")
