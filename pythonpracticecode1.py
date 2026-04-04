@@ -28,6 +28,8 @@ def drone_adjac(edges):
             # Option B: use setdefault (does the same thing in one line)
             # result.setdefault(drone_a, []).append(drone_b)
 print(drone_adjac(edges1))   
+print("----************************----")
+print("----************************----")
 
 # Your function should return:
 # {
